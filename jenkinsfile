@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    environment {
+        ENV_VARIABLE = 'EnvironmentVariable'
+        CUSTOM_WORKSPACE = 'C:/Users/ozankan/Documents/JenkinsRepository/%JOB_NAME%'
+    }
+    stages {
+        stage('Custom Workspace Example') {
+            steps {
+                script {
+                    dir(CUSTOM_WORKSPACE) {
+                        echo "Current Workspace: ${pwd()}"
+                    }
+                }
+            }
+        }
+        stage('Use Environment Variable') {
+            steps {
+                echo "Environment Variable: ${ENV_VARIABLE}"
+            }
+        }
+        stage('Show Current Workspace, Job Name, Build Number') {
+            steps {
+                echo "Current Workspace: ${pwd()}"
+                echo "Job Name: ${JOB_NAME}"
+                echo "Build Number: ${BUILD_NUMBER}"
+            }
+        }        
+    }
+}
